@@ -9,7 +9,7 @@ class DemoController extends \BaseController {
 	 */
 	public function index()
 	{
-    $demos = Demo::all();
+    $demos = Demo::orderBy('created_at', 'desc')->get();
 
     return View::make('index')->with('demos', $demos);
 	}
@@ -50,10 +50,11 @@ class DemoController extends \BaseController {
 
       $demo->name            = Input::get('title');
       $demo->description     = Input::get('description');
+      $demo->user_id         = Auth::user()->id;
 
       $demo->save();
 
-      return Redirect::to('/')->with('message', 'Demo has been successfully created!');
+      return Redirect::to('/')->with('success', 'Demo has been successfully created!');
 		}
 	}
 
@@ -104,10 +105,10 @@ class DemoController extends \BaseController {
 	  	$demo->description   = Input::get('description');
       $demo->save();
 
-      return Redirect::to('/')->with('message', 'Demo has been updated!');
+      return Redirect::to('/')->with('success', 'Demo has been updated!');
 
 	  } else {
-	  	return Redirect::to('/demo/{id}/edit')->with('message', 'Something went wrong.');
+	  	return Redirect::to('/demo/{id}/edit')->with('error_message', 'Something went wrong.');
 	  }
 	}
 
@@ -124,8 +125,34 @@ class DemoController extends \BaseController {
 
     $demo->delete();
 
-    return Redirect::to('/')->with('message', 'Demo has been deleted');
+    return Redirect::to('/')->with('error_message', 'Demo has been deleted');
 	}
 
+  public function assign($id)
+  {
+    $demo = Demo::find($id);
+
+    if ($demo) {
+      $users = User::all();
+      return View::make('demo.assign')->with('demo', $demo)->with('users', $users);
+    } else {
+      return App::abort('404');
+    }
+  }
+
+  public function assignPost($id)
+  {
+    $demo = Demo::find($id);
+
+    if ($demo) {
+      $user_id  = Input::get('user_assign');
+
+      $demo->users()->attach($user_id);
+
+      return Redirect::to('/')->with('success', 'Demo successfully assigned');
+    } else {
+      return Redirect::route('demo-assign')->with('error_message', 'Demo Could Not Be Assigned');
+    }
+  }
 
 }

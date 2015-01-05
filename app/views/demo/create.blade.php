@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
- <h1>Create Demo</h1>
+ <h1>Request Demo</h1>
 
   @if ($errors->has())
    <ul>

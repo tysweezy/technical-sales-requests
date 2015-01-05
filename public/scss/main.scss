@@ -24,3 +24,27 @@ body {
 #sidenav>li>a {
   padding: 10px 45px;
 }
+
+
+#shift-hours {
+
+  margin-top: 20px;
+  color: #666;
+
+  header {
+    background: #ccc;
+
+    p {
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  section {
+    text-align: center;
+
+    p {
+      font-size: 1.7em;
+    }
+  }
+}
