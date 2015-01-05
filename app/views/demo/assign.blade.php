@@ -8,8 +8,8 @@
 
 {{ Form::open() }}
   <label for="user_assign">Assign Sales Person to Demo</label>
-  <select name="user_assign" id="" class="form-control">
-    <option value="">---</option>
+  <select name="user_assign" id="assign-dropdown" class="form-control">
+    <option value="0">---</option>
     @foreach($users as $user)
       <option value="{{ $user->id }}">{{ $user->full_name }}</option>
     @endforeach

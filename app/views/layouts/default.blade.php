@@ -43,6 +43,7 @@
 {{ HTML::script('bower_components/moment/min/moment.min.js') }}
 {{ HTML::script('bower_components/fullcalendar/dist/fullcalendar.js') }}
 {{ HTML::script('js/tsrcalendar.js') }}
+{{ HTML::script('js/app.js') }}
 </div>
 </body>
 </html>
